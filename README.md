@@ -17,7 +17,7 @@ This example demonstrates how to implement Google reCAPTCHA with the Blazor DevE
 4. Insert the captcha widget into your form layout and pass the site key and secret key as parameters.
 5. Bind the component’s success and expiration events to local flags to track the captcha status.
 
-Note: The solution reads the site key and secret key from environment variables: RECAPTCHA_SITE_KEY and RECAPTCHA_SECRET_KEY. If these variables are not set, the application throws an exception to clearly indicate the missing configuration.
+Note: The solution reads the site key and secret key from environment variables: `RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY`. If these variables are not set, the application throws an exception to clearly indicate the missing configuration.
 You can adapt the implementation to retrieve the keys from other sources, such as appsettings.json or directly from the configuration file, based on your project requirements.
 
 ## Files to Review
