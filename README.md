@@ -35,3 +35,10 @@ You can adapt the implementation to retrieve the keys from other sources, such a
 
 (you will be redirected to DevExpress.com to submit your response)
 <!-- feedback end -->
+<!-- feedback -->
+## Does this example address your development requirements/objectives?
+
+[<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=use-recaptcha-with-devexpress-blazor&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=use-recaptcha-with-devexpress-blazor&~~~was_helpful=no)
+
+(you will be redirected to DevExpress.com to submit your response)
+<!-- feedback end -->
