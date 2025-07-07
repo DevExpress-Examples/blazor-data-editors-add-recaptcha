@@ -1,0 +1,69 @@
+﻿@inject IJSRuntime JS
+@inject HttpClient Http
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    function renderCaptcha(elementId, siteKey, dotNetHelper) {
+        grecaptcha.render(elementId, {
+            'sitekey': siteKey,
+            'callback': function (response) {
+                dotNetHelper.invokeMethodAsync('CaptchaCallbackSuccess', response);
+            },
+            'expired-callback': function () {
+                dotNetHelper.invokeMethodAsync('CaptchaCallbackExpired')
+            }
+        });
+    }
+</script>
+
+<div id="@ReCaptchaId"></div>
+
+@code {
+    [EditorRequired]
+    [Parameter]
+    public string SiteKey { get; set; }
+    [EditorRequired]
+    [Parameter]
+    public string SecretKey { get; set; }
+    [Parameter]
+    public EventCallback OnSuccess { get; set; }
+    [Parameter]
+    public EventCallback OnExpired { get; set; }
+
+    private string ReCaptchaId = Guid.NewGuid().ToString();
+    private DotNetObjectReference<ReCaptchaComponent> objRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender) {
+            objRef = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("renderCaptcha", ReCaptchaId, SiteKey, objRef);
+        }
+    }
+
+    [JSInvokable]
+    public async Task CaptchaCallbackSuccess(string response) {
+        var parameters = new Dictionary<string, string> {
+            { "secret", SecretKey },
+            { "response", response }
+        };
+
+        var content = new FormUrlEncodedContent(parameters);
+
+        var result = await Http.PostAsync("https://www.google.com/recaptcha/api/siteverify", content);
+
+        if (result.IsSuccessStatusCode) {
+            var strResponse = await result.Content.ReadAsStringAsync();
+
+            var jsonResponse = System.Text.Json.JsonDocument.Parse(strResponse);
+
+            if (jsonResponse.RootElement.TryGetProperty("success", out var successProp) && successProp.GetBoolean()) {
+                OnSuccess.InvokeAsync();
+            }
+        }
+    }
+
+    [JSInvokable]
+    public async Task CaptchaCallbackExpired() {
+        OnExpired.InvokeAsync();
+    }
+}

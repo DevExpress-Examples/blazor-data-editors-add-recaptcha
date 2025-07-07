@@ -1,0 +1,73 @@
+﻿@page "/"
+@using ReCaptcha.Models
+@inject IConfiguration configuration
+
+<div style="display: flex; justify-content: center;">
+    <EditForm EditContext="EditContext" OnSubmit="OnSubmit">
+        <DataAnnotationsValidator />
+        <DxFormLayout CssClass="formLayout">
+            <DxFormLayoutItem Caption="E-Mail: " ColSpanMd="12" Context="emailCtx">
+                <DxTextBox @bind-Text="Model.Email"></DxTextBox>
+            </DxFormLayoutItem>
+            <DxFormLayoutItem Caption="Name: " ColSpanMd="12" Context="nameCtx">
+                <DxTextBox @bind-Text="Model.Name"></DxTextBox>
+            </DxFormLayoutItem>
+            <DxFormLayoutItem ColSpanMd="12" Context="captchaCtx">
+                <ReCaptchaComponent @ref="ReCaptchaComponent"
+                                    SiteKey="@_siteKey"
+                                    SecretKey="@_secretKey"
+                                    OnSuccess="@(() => _isCaptchaSuccessful = true)"
+                                    OnExpired="@(() => _isCaptchaSuccessful = false)" />
+            </DxFormLayoutItem>
+        </DxFormLayout>
+        <ValidationSummary />
+        @if (_message != String.Empty) {
+            <div class="message">@_message</div>
+        }
+        <br />
+        <DxButton Text="Submit" SubmitFormOnClick="true"></DxButton>
+    </EditForm>
+
+</div>
+
+@code {
+    private ReCaptchaComponent ReCaptchaComponent { get; set; }
+    private Model Model { get; set; }
+    private EditContext EditContext { get; set; }
+
+    private bool _isCaptchaSuccessful = false;
+    private string _message = string.Empty;
+    private ValidationMessageStore _messageStore;
+    private string _siteKey;
+    private string _secretKey;
+
+    protected override void OnInitialized() {
+        Model = new Model();
+        EditContext = new EditContext(Model);
+        _messageStore = new ValidationMessageStore(EditContext);
+
+        _siteKey = Environment.GetEnvironmentVariable("RECAPTCHA_SITE_KEY")
+            ?? throw new InvalidOperationException("ReCaptcha site key not found. Please set the RECAPTCHA_SITE_KEY environment variable.");
+
+        _secretKey = Environment.GetEnvironmentVariable("RECAPTCHA_SECRET_KEY")
+            ?? throw new InvalidOperationException("ReCaptcha secret key not found. Please set the RECAPTCHA_SECRET_KEY environment variable.");
+    }
+
+    protected void OnSubmit(EditContext editContext) {
+        _messageStore.Clear();
+        _message = String.Empty;
+
+        var isModelValid = editContext.Validate();
+
+        if (!isModelValid)
+            return;
+
+        if (!_isCaptchaSuccessful) {
+            _messageStore.Add(new FieldIdentifier(Model, string.Empty), "Captcha is Required");
+            editContext.NotifyValidationStateChanged();
+            return;
+        }
+
+        _message = "Form is Valid";
+    }
+}
