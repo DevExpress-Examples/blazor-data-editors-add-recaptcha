@@ -33,15 +33,18 @@
     private string ReCaptchaId = Guid.NewGuid().ToString();
     private DotNetObjectReference<ReCaptchaComponent> objRef;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender) {
-        if (firstRender) {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
             objRef = DotNetObjectReference.Create(this);
             await JS.InvokeVoidAsync("renderCaptcha", ReCaptchaId, SiteKey, objRef);
         }
     }
 
     [JSInvokable]
-    public async Task CaptchaCallbackSuccess(string response) {
+    public async Task CaptchaCallbackSuccess(string response)
+    {
         var parameters = new Dictionary<string, string> {
             { "secret", SecretKey },
             { "response", response }
@@ -51,19 +54,22 @@
 
         var result = await Http.PostAsync("https://www.google.com/recaptcha/api/siteverify", content);
 
-        if (result.IsSuccessStatusCode) {
+        if (result.IsSuccessStatusCode)
+        {
             var strResponse = await result.Content.ReadAsStringAsync();
 
             var jsonResponse = System.Text.Json.JsonDocument.Parse(strResponse);
 
-            if (jsonResponse.RootElement.TryGetProperty("success", out var successProp) && successProp.GetBoolean()) {
+            if (jsonResponse.RootElement.TryGetProperty("success", out var successProp) && successProp.GetBoolean())
+            {
                 OnSuccess.InvokeAsync();
             }
         }
     }
 
     [JSInvokable]
-    public async Task CaptchaCallbackExpired() {
+    public async Task CaptchaCallbackExpired()
+    {
         OnExpired.InvokeAsync();
     }
 }

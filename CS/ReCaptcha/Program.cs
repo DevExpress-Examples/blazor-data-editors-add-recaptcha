@@ -1,3 +1,4 @@
+using ReCaptcha.Services;
 using ReCaptcha.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +8,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddDevExpressBlazor(options => {
-    options.BootstrapVersion = DevExpress.Blazor.BootstrapVersion.v5;
     options.SizeMode = DevExpress.Blazor.SizeMode.Medium;
 });
+builder.Services.AddScoped<DxThemesService>();
 builder.Services.AddHttpClient();
 builder.Services.AddMvc();
 

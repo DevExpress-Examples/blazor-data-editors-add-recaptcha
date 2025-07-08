@@ -21,7 +21,8 @@
             </DxFormLayoutItem>
         </DxFormLayout>
         <ValidationSummary />
-        @if (_message != String.Empty) {
+        @if (_message != String.Empty)
+        {
             <div class="message">@_message</div>
         }
         <br />
@@ -41,7 +42,8 @@
     private string _siteKey;
     private string _secretKey;
 
-    protected override void OnInitialized() {
+    protected override void OnInitialized()
+    {
         Model = new Model();
         EditContext = new EditContext(Model);
         _messageStore = new ValidationMessageStore(EditContext);
@@ -53,7 +55,8 @@
             ?? throw new InvalidOperationException("ReCaptcha secret key not found. Please set the RECAPTCHA_SECRET_KEY environment variable.");
     }
 
-    protected void OnSubmit(EditContext editContext) {
+    protected void OnSubmit(EditContext editContext)
+    {
         _messageStore.Clear();
         _message = String.Empty;
 
@@ -62,7 +65,8 @@
         if (!isModelValid)
             return;
 
-        if (!_isCaptchaSuccessful) {
+        if (!_isCaptchaSuccessful)
+        {
             _messageStore.Add(new FieldIdentifier(Model, string.Empty), "Captcha is Required");
             editContext.NotifyValidationStateChanged();
             return;
