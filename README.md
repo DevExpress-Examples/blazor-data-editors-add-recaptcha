@@ -25,7 +25,12 @@ Note: This solution obtains keys from the following environment variables: `RECA
 - [ReCaptchaComponent.razor](./CS/ReCaptcha/Components/ReCaptchaComponent.razor)
 - [Index.razor](./CS/ReCaptcha/Components/Pages/Index.razor)
 
+## Documentation
+
+- [reCAPTCHA Documentation](https://developers.google.com/recaptcha/intro)
+
 <!-- feedback -->
+
 ## Does this example address your development requirements/objectives?
 
 [<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=use-recaptcha-with-devexpress-blazor&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=use-recaptcha-with-devexpress-blazor&~~~was_helpful=no)
