@@ -7,7 +7,7 @@
 
 This example incorporates Google reCAPTCHA into DevExpress Data Editors. Refer to official Google documentation for detailed information on this component: [reCAPTCHA - Developer's Guide](https://developers.google.com/recaptcha/intro).
 
-![Sample](./result.png)
+![Data Editors Along With Captcha](./result.png)
 
 ## Implementation Details
 
