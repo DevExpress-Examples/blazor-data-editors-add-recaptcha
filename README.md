@@ -1,25 +1,25 @@
 <!-- default badges list -->
-![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/1015194452/25.1.3%2B)
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T1298864)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# DevExpress Blazor - How to add the Google reCAPTCHA tool to a project and use it with DevExpress Editors
+# DevExpress Blazor Data Editors - Incorporate Google reCAPTCHA tool
 
-This example demonstrates how to implement Google reCAPTCHA with the Blazor DevExpress components.
+This example incorporates Google reCAPTCHA into a Blazor Form Layout. The Form Layout contains DevExpress Blazor Data Editors, but no DevExpress-specific implementation is required. Integration steps are the same as they would be for an entry form with any data editor controls. 
 
-![Sample](./Sample.png)
+Refer to official Google documentation for detailed information on reCAPTCHA: [reCAPTCHA - Developer's Guide](https://developers.google.com/recaptcha/intro).
+
+![Data Editors Along With Captcha](./result.png)
 
 ## Implementation Details
 
-1. Register your website with the [Google reCAPTCHA](https://www.google.com/recaptcha/admin/create) service to obtain a site key and secret key.
-2. Create a reusable [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) that loads the Google reCAPTCHA API and renders the captcha widget using JavaScript interop.
-3. Handle the success and expiration callbacks in the [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) to verify the captcha response with Google’s verification service.
-4. Insert the captcha widget into your form layout and pass the site key and secret key as parameters.
-5. Bind the component’s success and expiration events to local flags to track the captcha status.
+1. Register your website in the [Google reCAPTCHA](https://www.google.com/recaptcha/admin/create) service to obtain site and secret keys.
+2. Create a reusable [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) that loads Google reCAPTCHA APIs and renders the widget via JavaScript interop.
+3. In [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) implementation, use Google reCAPTCHA API to handle success and expiration callbacks. Verify the captcha response with the Google verification service.
+4. Add a [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) to a Form Layout component. Bind site and secret keys to the component.
+5. Handle success and expiration events to modify a flag variable (track the captcha status).
 
-Note: The solution reads the site key and secret key from environment variables: `RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY`. If these variables are not set, the application throws an exception to clearly indicate the missing configuration.
-You can adapt the implementation to retrieve the keys from other sources, such as appsettings.json or directly from the configuration file, based on your project requirements.
+Note: This solution obtains keys from the following environment variables: `RECAPTCHA_SITE_KEY` and `RECAPTCHA_SECRET_KEY`. If these variables are not set, the application throws an exception to indicate missing configuration. You can adapt our implementation to retrieve keys from other sources, such as _appsettings.json_ or a configuration file.
 
 ## Files to Review
 
@@ -30,12 +30,6 @@ You can adapt the implementation to retrieve the keys from other sources, such a
 
 - [reCAPTCHA Documentation](https://developers.google.com/recaptcha/intro)
 
-## Does this example address your development requirements/objectives?
-
-[<img src="https://www.devexpress.com/support/examples/i/yes-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=use-recaptcha-with-devexpress-blazor&~~~was_helpful=yes) [<img src="https://www.devexpress.com/support/examples/i/no-button.svg"/>](https://www.devexpress.com/support/examples/survey.xml?utm_source=github&utm_campaign=use-recaptcha-with-devexpress-blazor&~~~was_helpful=no)
-
-(you will be redirected to DevExpress.com to submit your response)
-<!-- feedback end -->
 <!-- feedback -->
 ## Does this example address your development requirements/objectives?
 
