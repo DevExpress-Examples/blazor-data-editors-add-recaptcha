@@ -16,7 +16,7 @@ Refer to official Google documentation for detailed information on reCAPTCHA: [r
 
 1. Register your website in the [Google reCAPTCHA](https://www.google.com/recaptcha/admin/create) service to obtain site and secret keys.
 2. Create a reusable [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) that loads Google reCAPTCHA APIs and renders the widget via JavaScript interop.
-3. In [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) implementation, use Google reCAPTCHA API to handle success and expiration callbacks. Verify the captcha response with the Google verification service.
+3. In [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) implementation, use Google reCAPTCHA APIs to handle success and expiration callbacks. Verify the captcha response with the Google verification service.
 4. Add a [ReCaptchaComponent](./CS/ReCaptcha/Components/ReCaptchaComponent.razor) to a Form Layout component. Bind site and secret keys to the component.
 5. Handle success and expiration events to modify a flag variable (track the captcha status).
 
@@ -38,3 +38,4 @@ Note: This solution obtains keys from the following environment variables: `RECA
 
 (you will be redirected to DevExpress.com to submit your response)
 <!-- feedback end -->
+
